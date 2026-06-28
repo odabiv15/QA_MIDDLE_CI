@@ -17,7 +17,7 @@ class PageLocators:
 
     LOGIN_FIELD = (By.XPATH, "//input[@id='login-input']")
     PASSWORD_FIELD = (By.XPATH, "//input[@id='password-input']")
-    LOGIN_BUTTON = (By.XPATH, "//button[@id='Login']")
+    LOGIN_BUTTON = (By.XPATH, "//button[@id='submit-button']")
     STATUS_MESSAGE = (By.XPATH, "//p[@id='error-message']")
 
 

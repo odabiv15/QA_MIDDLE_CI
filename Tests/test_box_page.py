@@ -1,20 +1,20 @@
+import time
 
-from QA_MIDDLE_CI.Base.Base_class import Base
-from QA_MIDDLE_CI.Pages.box_page import PageBox
-from QA_MIDDLE_CI.utils.all_data import AllData
+from Pages.box_page import PageBox
+from utils.all_data import AllData
 
 
-class TestBox():
+class TestBox:
     url = "https://qa-guru.github.io/one-page-form/text-box.html"
 
-    def open(self):
+    def open(self, driver):
         driver.get(self.url)
 
     def test_input_fill_name_and_email(self, driver):
         data_test = AllData
         page = PageBox(driver)
 
-        self.open()
+        self.open(driver)
         page.input_full_name(data_test.fill_name)
         page.input_email(data_test.email_user)
         page.click_submit_button()
@@ -26,7 +26,7 @@ class TestBox():
         data_test = AllData
         page = PageBox(driver)
 
-        self.open()
+        self.open(driver)
         page.input_full_name(data_test.fill_name)
         page.input_permanent_address(data_test.permanent_address_user)
         page.input_current_address(data_test.current_address_user)
@@ -41,9 +41,9 @@ class TestBox():
     def test_checking_email_control(self, driver):
         data_test = AllData
         page = PageBox(driver)
-        from QA_MIDDLE_CI.Locators.locators import PageLocators
+        from Locators.locators import PageLocators
 
-        self.open()
+        self.open(driver)
         page.input_email(data_test.invalid_email)
         page.click_submit_button()
 
