@@ -1,17 +1,15 @@
-from selenium import webdriver
 import pytest
-from Tests.test_github import is_desktop_aspect
+from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-# UI в браузере: https://selenoid.autotests.cloud/#/
-# Для Selenium нужен hub, не UI:
-SELENOID_URL = "http://selenoid.autotests.cloud/wd/hub"
+from Tests.test_github import is_desktop_aspect
+
+SELENOID_URL = "https://user1:1234@selenoid.autotests.cloud/wd/hub"
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def driver():
     options = Options()
-    options.add_argument("--window-size=1920,1080")
     driver = webdriver.Remote(
         command_executor=SELENOID_URL,
         options=options,
@@ -36,13 +34,14 @@ def viewport(request, driver):
         "platform": platform,
     }
 
+
 @pytest.fixture
 def desktop_setup(driver):
     driver.set_window_size(1920, 1080)
     return driver
 
+
 @pytest.fixture
 def mobile_setup(driver):
     driver.set_window_size(375, 812)
     return driver
-
