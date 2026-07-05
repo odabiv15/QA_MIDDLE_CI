@@ -3,7 +3,9 @@ import pytest
 from Tests.test_github import is_desktop_aspect
 from selenium.webdriver.chrome.options import Options
 
-SELENOID_URL = "https://selenoid.autotests.cloud/#/"
+# UI в браузере: https://selenoid.autotests.cloud/#/
+# Для Selenium нужен hub, не UI:
+SELENOID_URL = "http://selenoid.autotests.cloud/wd/hub"
 
 
 @pytest.fixture
