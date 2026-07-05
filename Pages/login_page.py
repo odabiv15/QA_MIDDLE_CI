@@ -1,5 +1,5 @@
-from QA_MIDDLE_CI.Base.Base_class import Base
-from QA_MIDDLE_CI.Locators.locators import PageLocators
+from Base.Base_class import Base
+from Locators.locators import PageLocators
 
 
 class LoginPage(Base):
