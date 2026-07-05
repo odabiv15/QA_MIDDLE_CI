@@ -1,11 +1,19 @@
 from selenium import webdriver
 import pytest
 from Tests.test_github import is_desktop_aspect
+from selenium.webdriver.chrome.options import Options
+
+SELENOID_URL = "https://selenoid.autotests.cloud/#/"
 
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument("--window-size=1920,1080")
+    driver = webdriver.Remote(
+        command_executor=SELENOID_URL,
+        options=options,
+    )
     yield driver
     driver.quit()
 
