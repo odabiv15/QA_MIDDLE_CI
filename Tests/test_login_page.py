@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from Pages.login_page import LoginPage
@@ -9,6 +10,8 @@ class TestLoginPage:
     def open(self, driver):
         driver.get(self.url)
 
+    @allure.title("Валидация полей логина: {expected_message}")
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.parametrize(
         "login, password, expected_message",
         [
@@ -32,14 +35,19 @@ class TestLoginPage:
     )
     def test_login_validation_errors(self, driver, login, password, expected_message):
         page = LoginPage(driver)
-        self.open(driver)
 
-        if login:
-            page.input_login_field(login)
-        if password:
-            page.input_password_field(password)
+        with allure.step("Открытие страницы авторизации"):
+            self.open(driver)
 
-        page.click_login_button()
-        message_text = page.get_error_message()
+        with allure.step("Заполнение полей логина и пароля"):
+            if login:
+                page.input_login_field(login)
+            if password:
+                page.input_password_field(password)
 
-        assert message_text == expected_message
+        with allure.step("Нажатие кнопки Login"):
+            page.click_login_button()
+
+        with allure.step("Проверка сообщения об ошибке"):
+            message_text = page.get_error_message()
+            assert message_text == expected_message
