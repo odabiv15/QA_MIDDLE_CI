@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.client_config import ClientConfig
 
-from utils.attache import add_logs, add_screenshot, add_video
+from utils import attache
 
 SELENOID_URL = "https://selenoid.qa.guru/wd/hub"
 SELENOID_USER = "user1"
@@ -41,9 +41,9 @@ def driver():
 
     yield browser
 
-    session_id = browser.session_id
-    add_screenshot(browser)
-    add_logs(browser)
-    browser.quit()
+    attache.add_screenshot(browser)
+    attache.add_page_source(browser)
+    attache.add_console_logs(browser)
     if _use_selenoid():
-        add_video(session_id)
+        attache.add_video(browser)
+    browser.quit()

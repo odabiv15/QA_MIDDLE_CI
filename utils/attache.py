@@ -1,46 +1,44 @@
-import time
-from urllib.error import HTTPError, URLError
-from urllib.request import urlopen
-
 import allure
 from allure_commons.types import AttachmentType
 
-SELENOID_VIDEO_URL = "https://user1:1234@selenoid.qa.guru/video/{}.mp4"
 
-
-def add_screenshot(driver, name="screenshot"):
+def add_screenshot(driver):
     allure.attach(
         driver.get_screenshot_as_png(),
-        name=name,
+        name="screenshot",
         attachment_type=AttachmentType.PNG,
     )
 
 
-def add_logs(driver, name="browser_logs"):
-    try:
-        logs = driver.get_log("browser")
-        log_text = "\n".join(
-            f"[{entry['level']}] {entry['message']}" for entry in logs
-        ) or "Логи браузера пусты"
-    except Exception as error:
-        log_text = f"Не удалось получить логи браузера: {error}"
-
-    allure.attach(log_text, name=name, attachment_type=AttachmentType.TEXT)
+def add_console_logs(driver):
+    logs = "".join(
+        f'{log["message"]}\n'
+        for log in driver.execute("getLog", {"type": "browser"})["value"]
+    )
+    allure.attach(logs, "browser_logs", AttachmentType.TEXT, ".log")
 
 
-def add_video(session_id, name="video"):
-    url = SELENOID_VIDEO_URL.format(session_id)
-    video = b""
+def add_page_source(driver):
+    allure.attach(
+        driver.page_source,
+        "page_source",
+        AttachmentType.HTML,
+        ".html",
+    )
 
-    for _ in range(15):
-        try:
-            with urlopen(url, timeout=10) as response:
-                video = response.read()
-            if video and len(video) > 1000:
-                break
-        except (URLError, HTTPError, TimeoutError, OSError):
-            pass
-        time.sleep(1)
 
-    if video:
-        allure.attach(video, name=name, attachment_type=AttachmentType.MP4)
+def add_video(driver):
+    video_url = "https://selenoid.qa.guru/video/" + driver.session_id + ".mp4"
+    html = (
+        "<html><body>"
+        "<video width='100%' height='100%' controls autoplay>"
+        f"<source src='{video_url}' type='video/mp4'>"
+        "</video>"
+        "</body></html>"
+    )
+    allure.attach(
+        html,
+        "video_" + driver.session_id,
+        AttachmentType.HTML,
+        ".html",
+    )
