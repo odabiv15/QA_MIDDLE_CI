@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.client_config import ClientConfig
 
-SELENOID_URL = "https://selenoid.autotests.cloud/wd/hub"
+SELENOID_URL = "https://selenoid.qa.guru/wd/hub"
 SELENOID_USER = "user1"
 SELENOID_PASSWORD = "1234"
 
