@@ -1,7 +1,15 @@
-class AllData:
-    #BOX PAGE
-    fill_name = "Малерян Генрик Василевич"
-    email_user = "g.maleryan@mail.ru"
-    invalid_email = "123"
-    current_address_user = "Привокальная 3/1"
-    permanent_address_user = "Хутро Балабино-Русский"
+class AllDate:
+    first_name = "Genrik"
+    last_name = "Maleryan"
+    email = "g.maleryan@mail.ru"
+    mobile = "8999123456"
+    month = "March"
+    day = "11"
+    year = "2000"
+    gender = "Male"
+    hobbies = "Sports"
+    subject = "Maths"
+    state = "NCR"
+    city = "Delhi"
+    address = "Привокальная 3/1"
+    result_table_text = "Thanks for submitting the form"
