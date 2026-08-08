@@ -6,8 +6,8 @@ import allure
 class TestStudentsPage:
 
     @allure.title("Полное заполнение формы регистрации студента")
-    def test_fill_form(self, driver):
-        page = StudentsPage(driver)
+    def test_fill_form(self, driver, base_url):
+        page = StudentsPage(driver, base_url)
         date = AllDate
 
         with allure.step("Откыртие страницы регистрации"):

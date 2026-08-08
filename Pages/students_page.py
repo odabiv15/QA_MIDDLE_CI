@@ -6,11 +6,14 @@ from Locators.locators import PageLocators
 
 
 class StudentsPage(Base):
-    URL = "https://qa-guru.github.io/one-page-form/automation-practice-form.html"
+
+    def __init__(self, driver, base_url):
+        super().__init__(driver)
+        self.base_url = base_url
 
     @allure.step("Открытие страницы Student Registration Form")
     def open(self):
-        self.driver.get(self.URL)
+        self.driver.get(self.base_url)
 
     @allure.step("Ввод First Name: {text}")
     def input_first_name(self, text):
