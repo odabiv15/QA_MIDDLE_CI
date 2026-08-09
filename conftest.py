@@ -12,7 +12,6 @@ load_dotenv()
 
 
 def pytest_addoption(parser):
-    """Регистрируем CLI-параметры — их же потом пробросим из Jenkins."""
     parser.addoption(
         "--base_url",
         default="https://qa-guru.github.io/one-page-form/automation-practice-form.html",
@@ -65,7 +64,7 @@ def driver(request):
     selenoid_url = request.config.getoption("--selenoid_url")
     remote = request.config.getoption("--remote") == "true"
 
-    # Секреты — только из .env / переменных окружения
+    # Секреты — только из .env
     selenoid_login = os.getenv("SELENOID_LOGIN")
     selenoid_password = os.getenv("SELENOID_PASSWORD")
 
